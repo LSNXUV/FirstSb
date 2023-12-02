@@ -1,0 +1,91 @@
+<!-- students.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Students</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/bootstrap/5.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/1.5.0/axios.min.js"></script>
+</head>
+<body  data-bs-theme="dark">
+<div class="container mt-5">
+    <div class="row">
+        <div class="col">
+            <input type="text" id="searchName" class="form-control" placeholder="根据名字搜索"
+                   onchange="SearchStudents()"
+                   onkeyup="SearchStudents()"
+            >
+        </div>
+        <div class="col">
+            <input type="text" id="searchMajor" class="form-control" placeholder="根据专业搜索"
+                   onchange="SearchStudents()"
+                   onkeyup="SearchStudents()"
+            >
+        </div>
+    </div>
+    <button onclick="fetchStudents()" class="btn btn-primary mt-4">Search</button>
+    <table class="table table-dark table-hover table-bordered table-striped mt-4" id="studentsTable">
+        <thead>
+        <tr class="text-center">
+            <th>学号</th>
+            <th>姓名</th>
+            <th>专业</th>
+            <th>年龄</th>
+            <th>性别</th>
+            <th>手机号</th>
+            <th>邮箱</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="student : ${students}" class="text-center">
+            <td th:text="${student.id}"></td>
+            <td th:text="${student.name}"></td>
+            <td th:text="${student.major}"></td>
+            <td th:text="${student.age}"></td>
+            <td th:text="${student.gender}"></td>
+            <td th:text="${student.phone}"></td>
+            <td th:text="${student.email}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function fetchStudents() {
+        let name = document.getElementById('searchName').value;
+        if (!name) {
+            return;
+        }
+        axios.get('/student/html/search?name=' + name)
+            .then(function (response) {
+                document.body.innerHTML = response.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+    function SearchStudents() {
+        let input, table, tr, i;
+        let filterName, filterMajor;
+        input = document.getElementById("searchName");
+        filterName = input.value.toUpperCase();
+        input = document.getElementById("searchMajor");
+        filterMajor = input.value.toUpperCase();
+        table = document.getElementById("studentsTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            let name = tr[i].getElementsByTagName("td")[1]; //根据名字筛选
+            let major = tr[i].getElementsByTagName("td")[2]; //根据专业筛选
+            if (name || major) {
+                name = name.textContent || name.innerText;
+                major = major.textContent || major.innerText;
+                if (name.toUpperCase().indexOf(filterName) > -1 && major.toUpperCase().indexOf(filterMajor) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+</body>
+</html>
