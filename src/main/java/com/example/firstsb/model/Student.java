@@ -5,11 +5,6 @@ import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * @program: firstsb
- * @description: Student实体类，对应数据库中的students表
- * @version: 1.0.0
- */
 
 @Entity
 @Getter@Setter

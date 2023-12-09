@@ -32,10 +32,12 @@ public class StudentService {
         }
         return studentRepository.findAll(pageable);
     }
-    //findByName
+
+    //findByName，模糊查询
     public List<Student> findByName(String name) {
         return studentRepository.findByNameContainingIgnoreCase(name);
     }
+
     //findById
     public Student findById(Long id) {
         return studentRepository.findById(id).orElse(null);

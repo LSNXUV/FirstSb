@@ -2,7 +2,7 @@ package com.example.firstsb.controller;
 
 import com.example.firstsb.model.TC;
 import com.example.firstsb.service.TCService;
-import com.example.firstsb.tool.ResponseData;
+import com.example.firstsb.lib.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

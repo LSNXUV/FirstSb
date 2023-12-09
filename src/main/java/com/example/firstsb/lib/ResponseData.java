@@ -1,12 +1,16 @@
-package com.example.firstsb.tool;
+package com.example.firstsb.lib;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 
 @Getter
 public class ResponseData<T> {
     private final int code;
     private final String msg;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)  // 如果data为null，则不返回
     private final T data;
+
     private static final int DEFAULT_CODE = 0;
     private static final String DEFAULT_MSG = "ok";
     public ResponseData(){

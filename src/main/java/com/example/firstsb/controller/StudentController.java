@@ -2,7 +2,7 @@ package com.example.firstsb.controller;
 
 import com.example.firstsb.model.Student;
 import com.example.firstsb.service.StudentService;
-import com.example.firstsb.tool.ResponseData;
+import com.example.firstsb.lib.ResponseData;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -66,15 +66,15 @@ public class StudentController {
     }
 
     // 删除学生
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<ResponseData<String>> deleteStudent(@PathVariable @Min(1) Long id) {
+    @DeleteMapping("/delete")
+    public ResponseEntity<ResponseData<String>> deleteStudent(@RequestParam @Min(1) Long id) {
         studentService.deleteById(id);
         ResponseData<String> responseData = new ResponseData<>("成功删除学生, id: " + id);
         return new ResponseEntity<>(responseData, HttpStatus.OK);
     }
 
     //  根据姓名查询返回 JSON 数据
-    @GetMapping("/search")
+    @GetMapping("/searchByName")
     public ResponseEntity<ResponseData<List<Student>>> getStudentByName(@RequestParam @NotBlank(message = "Name cannot be blank") String name) {
         List<Student> students = studentService.findByName(name);
         ResponseData<List<Student>> responseData = new ResponseData<>(students);
@@ -82,29 +82,13 @@ public class StudentController {
     }
 
     // 根据 ID 查询返回 JSON 数据
-    @GetMapping("/{id}")
-    public ResponseEntity<ResponseData<Student>> getStudentById(@PathVariable @Min(1) Long id) {
+    @GetMapping("/searchById")
+    public ResponseEntity<ResponseData<Student>> getStudentById(@RequestParam @NotBlank(message = "参数错误") @Min(1) Long id) {
         Student student = studentService.findById(id);
         ResponseData<Student> responseData = new ResponseData<>(student);
         return new ResponseEntity<>(responseData, HttpStatus.OK);
     }
 
 
-/*
-    // 返回所有学生信息的 HTML 页面
-    @GetMapping("/html/all")
-    public String students(Model model) {
-        List<Student> students = studentService.findAll();
-        model.addAttribute("students", students);
-        return "students"; // 对应 students.html
-    }
 
-    // 根据姓名搜索并返回 HTML 页面
-    @GetMapping("/html/search")
-    public String searchStudents(@RequestParam String name, Model model) {
-        List<Student> students = studentService.findByName(name);
-        model.addAttribute("students", students);
-        return "students"; // 使用相同的视图，students.html
-    }
-*/
 }

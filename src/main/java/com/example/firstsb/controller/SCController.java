@@ -2,7 +2,7 @@ package com.example.firstsb.controller;
 
 import com.example.firstsb.model.SC;
 import com.example.firstsb.service.SCService;
-import com.example.firstsb.tool.ResponseData;
+import com.example.firstsb.lib.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +29,6 @@ public class SCController {
     public static class EnrollSC {
         public Long cid;
         public Long sid;
-
         public EnrollSC(Long cid, Long sid) {
             this.cid = cid;
             this.sid = sid;
@@ -39,16 +38,33 @@ public class SCController {
 
     @PostMapping("/save")
     public ResponseEntity<ResponseData<SC>> saveSC(@RequestBody EnrollSC data) {
-        Long cid = data.cid;
-        Long sid = data.sid;
-        SC sc = scService.save(cid, sid);
-        if(sc == null) {
-            ResponseData<SC> responseData = new ResponseData<>(1, "选课失败");
-            return new ResponseEntity<>(responseData, HttpStatus.BAD_REQUEST);
+        if(data.cid == null || data.sid == null) {
+            return new ResponseEntity<>(new ResponseData<>("参数错误"), HttpStatus.OK);
         }
+        SC sc = scService.save(data.cid, data.sid);
         ResponseData<SC> responseData = new ResponseData<>(sc);
-        return new ResponseEntity<>(responseData, HttpStatus.CREATED);
+        return new ResponseEntity<>(responseData, HttpStatus.OK);
     }
+
+    //score
+    public static class ScoreSC {
+        public int id;
+        public int score;
+        public ScoreSC(int id, int score) {
+            this.id = id;
+            this.score = score;
+        }
+    }
+    @PostMapping("/score")
+    public ResponseEntity<ResponseData<SC>> scoreSC(@RequestBody ScoreSC data) {
+        if(data.id <= 0 || data.score < 0 || data.score > 100) {
+            return new ResponseEntity<>(new ResponseData<>("参数错误"), HttpStatus.OK);
+        }
+        SC sc = scService.save(data.id, data.score);
+        ResponseData<SC> responseData = new ResponseData<>(sc);
+        return new ResponseEntity<>(responseData, HttpStatus.OK);
+    }
+
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<ResponseData<String>> deleteSCById(@PathVariable int id) {
