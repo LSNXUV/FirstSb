@@ -1,6 +1,7 @@
-package com.example.firstsb.lib;
+package com.example.firstsb.lib.CustomException;
 
 import com.example.firstsb.lib.CustomException.FatalException;
+import com.example.firstsb.lib.ResponseData;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

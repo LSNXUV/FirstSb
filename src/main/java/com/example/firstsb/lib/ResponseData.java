@@ -22,6 +22,9 @@ public class ResponseData<T> {
     public ResponseData(int code, String msg) {
         this(code, msg, null);
     }
+    public ResponseData(T data, String msg) {
+        this(DEFAULT_CODE, msg, data);
+    }
     public ResponseData(T data) {
         this(DEFAULT_CODE, DEFAULT_MSG, data);
     }
