@@ -11,9 +11,15 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler({FatalException.class,Exception.class})
-    public ResponseEntity<Object> handleNotFoundException(RuntimeException ex) {
+    @ExceptionHandler({FatalException.class})
+    public ResponseEntity<Object> handleAllException(Exception ex) {
         ResponseData<Object> responseData = new ResponseData<>(1, ex.getMessage());
+        return new ResponseEntity<>(responseData, HttpStatus.OK);
+    }
+
+    @ExceptionHandler({Exception.class})
+    public ResponseEntity<Object> handleDefaultException(Exception ex) {
+        ResponseData<Object> responseData = new ResponseData<>(1, "参数错误");
         return new ResponseEntity<>(responseData, HttpStatus.OK);
     }
 }

@@ -66,8 +66,8 @@ public class SCController {
     }
 
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<ResponseData<String>> deleteSCById(@PathVariable int id) {
+    @DeleteMapping("/delete")
+    public ResponseEntity<ResponseData<String>> deleteSCById(@RequestParam int id) {
         scService.deleteById(id);
         String message = "成功删除选课,ID: " + id;
         ResponseData<String> responseData = new ResponseData<>(message);

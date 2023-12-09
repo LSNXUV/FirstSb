@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity@Setter@Getter
 @Table(name = "sc",uniqueConstraints = {
@@ -14,12 +16,14 @@ public class SC {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;         // 主键
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "cid", referencedColumnName = "id")
+    @OnDelete(action = OnDeleteAction.CASCADE)  // 删除课程时，删除选课信息
     private Course course;   // 课程号，外键
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "sid", referencedColumnName = "id")
+    @OnDelete(action = OnDeleteAction.CASCADE)  // 删除学生时，删除选课信息
     private Student student; // 学号，外键
 
     //score,默认值为null
