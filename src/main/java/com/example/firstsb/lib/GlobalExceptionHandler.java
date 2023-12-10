@@ -1,4 +1,4 @@
-package com.example.firstsb.lib.CustomException;
+package com.example.firstsb.lib;
 
 import com.example.firstsb.lib.CustomException.FatalException;
 import com.example.firstsb.lib.ResponseData;
@@ -20,7 +20,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler({Exception.class})
     public ResponseEntity<Object> handleDefaultException(Exception ex) {
-        ResponseData<Object> responseData = new ResponseData<>(1, "参数错误");
+        ResponseData<Object> responseData = new ResponseData<>(1, "操作失败");
         return new ResponseEntity<>(responseData, HttpStatus.OK);
     }
 }
