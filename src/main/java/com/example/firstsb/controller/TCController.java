@@ -2,10 +2,8 @@ package com.example.firstsb.controller;
 
 import com.example.firstsb.model.TC;
 import com.example.firstsb.service.TCService;
-import com.example.firstsb.lib.ResponseData;
+import com.example.firstsb.lib.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,10 +18,9 @@ public class TCController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<ResponseData<List<TC>>> getAllTC() {
+    public Response<List<TC>> getAllTC() {
         List<TC> tcList = tcService.findAll();
-        ResponseData<List<TC>> responseData = new ResponseData<>(tcList);
-        return new ResponseEntity<>(responseData, HttpStatus.OK);
+        return Response.success(tcList);
     }
 
     public static class EnrollTC {
@@ -36,24 +33,21 @@ public class TCController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<ResponseData<TC>> saveTC(@RequestBody EnrollTC data) {
+    public Response<TC> saveTC(@RequestBody EnrollTC data) {
         Long tid = data.tid;
         Long cid = data.cid;
 
         TC tc = tcService.save(tid,cid);
         if(tc == null) {
-            ResponseData<TC> responseData = new ResponseData<>(1, "开课失败");
-            return new ResponseEntity<>(responseData, HttpStatus.BAD_REQUEST);
+            return Response.error("开课失败");
         }
-        ResponseData<TC> responseData = new ResponseData<>(tc);
-        return new ResponseEntity<>(responseData, HttpStatus.OK);
+        return Response.success(tc);
     }
 
     @DeleteMapping ("/delete/{id}")
-    public ResponseEntity<ResponseData<String>> deleteTCById(@PathVariable int id) {
+    public Response<String> deleteTCById(@PathVariable int id) {
         tcService.deleteById(id);
-        ResponseData<String> responseData = new ResponseData<>("成功删除教师课程,ID: " + id);
-        return new ResponseEntity<>(responseData, HttpStatus.OK);
+        return Response.successM("成功删除开课,id: " + id);
     }
 
 

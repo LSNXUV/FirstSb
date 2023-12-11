@@ -20,7 +20,7 @@ public class CourseService {
         return courseRepository.findAll();
     }
     //findByName
-    public List<Course> findByName(String name) {
+    public Course findByName(String name) {
         return courseRepository.findByName(name);
     }
 

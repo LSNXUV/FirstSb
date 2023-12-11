@@ -14,11 +14,11 @@ public class User {
     private int id;             //id
 
     //唯一
-    @Column(nullable = false, unique = true)@NotNull
+    @Column(nullable = false)@NotNull
     @Size(min = 2, max = 20, message = "姓名长度必须在2-20之间")
     private String name;        //姓名
 
-    @Column(nullable = false)@NotNull
+    @Column(nullable = false, unique = true)@NotNull
     @Size(min = 2, max = 20, message = "用户名长度必须在2-20之间")
     private String username;    //用户名
 

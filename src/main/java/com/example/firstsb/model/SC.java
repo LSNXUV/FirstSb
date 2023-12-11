@@ -27,8 +27,8 @@ public class SC {
     private Student student; // 学号，外键
 
     //score,默认值为null
-    @Column(nullable = true)
+    @Column(columnDefinition = "int default null")
     @Min(value = 0, message = "分数必须大于等于0")
     @Max(value = 100, message = "分数必须小于等于100")
-    private int score;
+    private Integer score;
 }

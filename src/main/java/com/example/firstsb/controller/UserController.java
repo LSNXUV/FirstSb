@@ -1,8 +1,7 @@
 package com.example.firstsb.controller;
 
 
-import com.example.firstsb.lib.ResponseData;
-import com.example.firstsb.lib.auth.JwtUtil;
+import com.example.firstsb.lib.Response;
 import com.example.firstsb.model.User;
 import com.example.firstsb.service.UserService;
 import jakarta.validation.Valid;
@@ -10,19 +9,16 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 
-@Controller
+@RestController
 @RequestMapping("/user")
 public class UserController {
     private final UserService userService;
@@ -45,33 +41,37 @@ public class UserController {
 
     //登录
     @PostMapping("/login")
-    public ResponseEntity<ResponseData<String>> login(@Valid LoginData loginData, BindingResult result) {
+    public Response<String> login(@Valid LoginData loginData, BindingResult result) {
         if (result.hasErrors()) {
             // 处理验证错误
             String errorMsg = result.getAllErrors().stream()
                     .map(ObjectError::getDefaultMessage)
                     .collect(Collectors.joining(", "));
-            return new ResponseEntity<>(new ResponseData<>(errorMsg), HttpStatus.OK);
+            return Response.error(errorMsg);
         }
         String jwt = userService.login(loginData.getUsername(), loginData.getPassword());
         if(jwt == null){
-            return new ResponseEntity<>(new ResponseData<>("用户名或密码错误"), HttpStatus.OK);
+            return Response.error("用户名或密码错误");
         }
-        return new ResponseEntity<>(new ResponseData<>(jwt, "登录成功"), HttpStatus.OK);
+        return Response.success(jwt,"登录成功");
     }
 
     //注册
     @PostMapping("/register")
-    public ResponseEntity<ResponseData<String>> register(@Valid User user, BindingResult result) {
+    public Response<String> register(@Valid User user, BindingResult result) {
 
         if (result.hasErrors()) {
             // 处理验证错误
             String errorMsg = result.getAllErrors().stream()
                     .map(ObjectError::getDefaultMessage)
                     .collect(Collectors.joining(", "));
-            return new ResponseEntity<>(new ResponseData<>(errorMsg), HttpStatus.OK);
+            return Response.error(errorMsg);
+        }
+        //看用户名是否已经存在
+        if(userService.findByUsername(user.getUsername())){
+            return Response.error("用户名已存在");
         }
         String jwt = userService.save(user);
-        return new ResponseEntity<>(new ResponseData<>(jwt, "注册成功"), HttpStatus.OK);
+        return Response.success(jwt,"注册成功");
     }
 }

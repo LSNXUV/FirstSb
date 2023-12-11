@@ -1,7 +1,6 @@
 package com.example.firstsb.lib;
 
 import com.example.firstsb.lib.CustomException.FatalException;
-import com.example.firstsb.lib.ResponseData;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -14,13 +13,13 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler({FatalException.class})
     public ResponseEntity<Object> handleAllException(Exception ex) {
-        ResponseData<Object> responseData = new ResponseData<>(1, ex.getMessage());
+        Response<Object> responseData = Response.error(ex.getMessage());
         return new ResponseEntity<>(responseData, HttpStatus.OK);
     }
 
     @ExceptionHandler({Exception.class})
     public ResponseEntity<Object> handleDefaultException(Exception ex) {
-        ResponseData<Object> responseData = new ResponseData<>(1, "操作失败");
+        Response<Object> responseData = Response.error("操作失败");
         return new ResponseEntity<>(responseData, HttpStatus.OK);
     }
 }

@@ -30,6 +30,16 @@ public class SCService {
         return scRepository.findAll();
     }
 
+
+    public List<SC> findByCourseName(String name) {
+        Course c = courseRepository.findByName(name);
+        List<SC> scList = scRepository.findByCourse(c);
+        //除了score为null的
+        scList.removeIf(sc -> sc.getScore() == null);
+        return scList;
+    }
+
+
     /**
      * 选课,根据课程id和学生id
      * @param cid
@@ -45,6 +55,7 @@ public class SCService {
         SC sc = new SC();
         sc.setCourse(course);
         sc.setStudent(student);
+        System.out.println(sc.getScore());
         try{
             return scRepository.save(sc);
         } catch (Exception e) {
@@ -58,7 +69,7 @@ public class SCService {
      * @param score
      * @return
      */
-    public SC save(int id, int score) {
+    public SC save(int id, Integer score) {
         SC sc = scRepository.findById(id)
                 .orElseThrow(() -> new FatalException("不存在该选课记录"));
         sc.setScore(score);

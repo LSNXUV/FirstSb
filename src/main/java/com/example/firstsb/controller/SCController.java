@@ -2,10 +2,8 @@ package com.example.firstsb.controller;
 
 import com.example.firstsb.model.SC;
 import com.example.firstsb.service.SCService;
-import com.example.firstsb.lib.ResponseData;
+import com.example.firstsb.lib.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,10 +18,9 @@ public class SCController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<ResponseData<List<SC>>> getAllSC() {
+    public Response<List<SC>> getAllSC() {
         List<SC> scList = scService.findAll();
-        ResponseData<List<SC>> responseData = new ResponseData<>(scList);
-        return new ResponseEntity<>(responseData, HttpStatus.OK);
+        return Response.success(scList);
     }
 
     public static class EnrollSC {
@@ -37,41 +34,49 @@ public class SCController {
 
 
     @PostMapping("/save")
-    public ResponseEntity<ResponseData<SC>> saveSC(@RequestBody EnrollSC data) {
+    public Response<SC> saveSC(@RequestBody EnrollSC data) {
         if(data.cid == null || data.sid == null) {
-            return new ResponseEntity<>(new ResponseData<>("参数错误"), HttpStatus.OK);
+            return Response.error("参数错误");
         }
         SC sc = scService.save(data.cid, data.sid);
-        ResponseData<SC> responseData = new ResponseData<>(sc);
-        return new ResponseEntity<>(responseData, HttpStatus.OK);
+        return Response.success(sc);
     }
 
     //score
     public static class ScoreSC {
         public int id;
-        public int score;
-        public ScoreSC(int id, int score) {
+        public Integer score;
+        public ScoreSC(int id, Integer score) {
             this.id = id;
             this.score = score;
         }
     }
     @PostMapping("/score")
-    public ResponseEntity<ResponseData<SC>> scoreSC(@RequestBody ScoreSC data) {
-        if(data.id <= 0 || data.score < 0 || data.score > 100) {
-            return new ResponseEntity<>(new ResponseData<>("参数错误"), HttpStatus.OK);
+    public Response<SC> scoreSC(@RequestBody ScoreSC data) {
+
+        //允许score为null，但是如果是数字，必须在0-100之间
+        if(data.id <= 0 || (data.score != null && (data.score < 0 || data.score > 100))) {
+            return Response.error("score必须在0-100之间,或者为null");
         }
+
         SC sc = scService.save(data.id, data.score);
-        ResponseData<SC> responseData = new ResponseData<>(sc);
-        return new ResponseEntity<>(responseData, HttpStatus.OK);
+        return Response.success(sc);
     }
 
+    //findByCourseName
+    @GetMapping("/scores/name")
+    public Response<List<SC>> getSCByCourseName(@RequestParam String name) {
+        if(name == null || name.isEmpty()) {
+            return Response.error("name不能为空");
+        }
+        List<SC> scList = scService.findByCourseName(name);
+        return Response.success(scList);
+    }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<ResponseData<String>> deleteSCById(@RequestParam int id) {
+    public Response<String> deleteSCById(@RequestParam int id) {
         scService.deleteById(id);
-        String message = "成功删除选课,ID: " + id;
-        ResponseData<String> responseData = new ResponseData<>(message);
-        return new ResponseEntity<>(responseData, HttpStatus.OK);
+        return Response.successM("成功删除选课,id: " + id);
     }
 
 

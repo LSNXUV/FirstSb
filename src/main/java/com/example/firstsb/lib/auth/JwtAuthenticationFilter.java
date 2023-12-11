@@ -1,7 +1,7 @@
 package com.example.firstsb.lib.auth;
 
 
-import com.example.firstsb.lib.ResponseData;
+import com.example.firstsb.lib.Response;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
@@ -33,7 +33,7 @@ public class JwtAuthenticationFilter implements Filter {
             //token无效
             HttpServletResponse httpResponse = (HttpServletResponse) response;
             httpResponse.setContentType("application/json;charset=UTF-8");
-            ResponseData<Object> responseData = new ResponseData<>(-1, "token无效");
+            Response<Object> responseData = Response.error(-1, "token无效");
             ObjectMapper objectMapper = new ObjectMapper();
             String jsonResponse = objectMapper.writeValueAsString(responseData);
             httpResponse.getWriter().write(jsonResponse);
