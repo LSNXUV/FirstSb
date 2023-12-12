@@ -19,6 +19,7 @@ com\example\firstsb\repository\SCRepository.class
 com\example\firstsb\model\SC.class
 com\example\firstsb\model\TC.class
 com\example\firstsb\controller\TCController.class
+com\example\firstsb\lib\Response.class
 com\example\firstsb\controller\UserController.class
 com\example\firstsb\model\Student.class
 com\example\firstsb\config\WebConfig.class
@@ -26,7 +27,6 @@ com\example\firstsb\FirstSbApplication.class
 com\example\firstsb\controller\SCController.class
 com\example\firstsb\service\CourseService.class
 com\example\firstsb\service\TCService.class
-com\example\firstsb\lib\ResponseData.class
 com\example\firstsb\controller\TeacherController.class
 com\example\firstsb\controller\SCController$ScoreSC.class
 com\example\firstsb\repository\TeacherRepository.class

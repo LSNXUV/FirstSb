@@ -1,3 +1,4 @@
+S:\Projects\JavaProjects\SB\FirstSb\src\main\java\com\example\firstsb\lib\Response.java
 S:\Projects\JavaProjects\SB\FirstSb\src\main\java\com\example\firstsb\service\TeacherService.java
 S:\Projects\JavaProjects\SB\FirstSb\src\main\java\com\example\firstsb\controller\TCController.java
 S:\Projects\JavaProjects\SB\FirstSb\src\main\java\com\example\firstsb\model\Course.java
@@ -18,7 +19,6 @@ S:\Projects\JavaProjects\SB\FirstSb\src\main\java\com\example\firstsb\model\User
 S:\Projects\JavaProjects\SB\FirstSb\src\main\java\com\example\firstsb\config\WebConfig.java
 S:\Projects\JavaProjects\SB\FirstSb\src\main\java\com\example\firstsb\repository\TCRepository.java
 S:\Projects\JavaProjects\SB\FirstSb\src\main\java\com\example\firstsb\lib\GlobalExceptionHandler.java
-S:\Projects\JavaProjects\SB\FirstSb\src\main\java\com\example\firstsb\lib\ResponseData.java
 S:\Projects\JavaProjects\SB\FirstSb\src\main\java\com\example\firstsb\service\TCService.java
 S:\Projects\JavaProjects\SB\FirstSb\src\main\java\com\example\firstsb\repository\StudentRepository.java
 S:\Projects\JavaProjects\SB\FirstSb\src\main\java\com\example\firstsb\controller\StudentController.java

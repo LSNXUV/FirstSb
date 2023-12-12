@@ -30,7 +30,6 @@ public class SCService {
         return scRepository.findAll();
     }
 
-
     public List<SC> findByCourseName(String name) {
         Course c = courseRepository.findByName(name);
         List<SC> scList = scRepository.findByCourse(c);
@@ -39,6 +38,13 @@ public class SCService {
         return scList;
     }
 
+    public List<SC> findByStudentName(String name) {
+        Student s = studentRepository.findByName(name);
+        List<SC> scList = scRepository.findByStudent(s);
+        //除了score为null的
+        scList.removeIf(sc -> sc.getScore() == null);
+        return scList;
+    }
 
     /**
      * 选课,根据课程id和学生id
@@ -83,4 +89,6 @@ public class SCService {
     public void deleteById(int id) {
         scRepository.deleteById(id);
     }
+
+
 }

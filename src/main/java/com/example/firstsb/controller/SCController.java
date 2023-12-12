@@ -73,6 +73,16 @@ public class SCController {
         return Response.success(scList);
     }
 
+    //findByStudentName
+    @GetMapping("/scores/student")
+    public Response<List<SC>> getSCByStudentName(@RequestParam String name) {
+        if(name == null || name.isEmpty()) {
+            return Response.error("name不能为空");
+        }
+        List<SC> scList = scService.findByStudentName(name);
+        return Response.success(scList);
+    }
+
     @DeleteMapping("/delete")
     public Response<String> deleteSCById(@RequestParam int id) {
         scService.deleteById(id);
