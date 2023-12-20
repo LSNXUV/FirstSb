@@ -17,6 +17,7 @@ S:\Projects\JavaProjects\SB\FirstSb\src\main\java\com\example\firstsb\repository
 S:\Projects\JavaProjects\SB\FirstSb\src\main\java\com\example\firstsb\service\CourseService.java
 S:\Projects\JavaProjects\SB\FirstSb\src\main\java\com\example\firstsb\lib\AOP\ControllerLoggingAspect.java
 S:\Projects\JavaProjects\SB\FirstSb\src\main\java\com\example\firstsb\model\User.java
+S:\Projects\JavaProjects\SB\FirstSb\src\main\java\com\example\firstsb\config\WebConfig.java
 S:\Projects\JavaProjects\SB\FirstSb\src\main\java\com\example\firstsb\repository\TCRepository.java
 S:\Projects\JavaProjects\SB\FirstSb\src\main\java\com\example\firstsb\lib\GlobalExceptionHandler.java
 S:\Projects\JavaProjects\SB\FirstSb\src\main\java\com\example\firstsb\service\TCService.java

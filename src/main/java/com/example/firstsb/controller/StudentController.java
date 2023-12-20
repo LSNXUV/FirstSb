@@ -17,7 +17,7 @@ import org.springframework.validation.ObjectError;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@CrossOrigin// 允许跨域
+//@CrossOrigin// 允许跨域
 @RestController
 @RequestMapping("/student")
 public class StudentController {
