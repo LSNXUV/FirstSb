@@ -23,7 +23,6 @@ public class Response<T> {
         this.data = data;
     }
 
-
     // 成功时使用的静态方法
     public static <T> Response<T> success(T data) {
         return new Response<>(SUCCESS_CODE, DEFAULT_SUCCESS_MSG, data);
@@ -31,20 +30,16 @@ public class Response<T> {
     public static <T> Response<T> success(T data, String msg) {
         return new Response<>(SUCCESS_CODE, msg, data);
     }
-
     public static <T> Response<T> successM(String msg) {
         return new Response<>(SUCCESS_CODE, msg, null);
     }
-
     public static <T> Response<T> success() {
         return new Response<>(SUCCESS_CODE, DEFAULT_SUCCESS_MSG, null);
     }
-
     // 错误时使用的静态方法
     public static <T> Response<T> error(String msg) {
         return new Response<>(ERROR_CODE, msg, null);
     }
-
     public static <T> Response<T> error(int code, String msg) {
         return new Response<>(code, msg, null);
     }

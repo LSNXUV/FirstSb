@@ -17,7 +17,7 @@ import org.springframework.validation.ObjectError;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "http://127.0.0.1:5500") // 允许来自特定来源的跨域请求
+@CrossOrigin// 允许跨域
 @RestController
 @RequestMapping("/student")
 public class StudentController {

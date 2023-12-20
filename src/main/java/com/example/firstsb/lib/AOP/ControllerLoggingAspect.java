@@ -7,12 +7,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+/**
+ * Controller 日志切面
+ * 用于记录 Controller 的方法调用情况
+ * 1. 记录方法开始执行
+ * 2. 记录方法执行完成
+ * 3. 记录异常
+ * 4. 记录方法执行时间
+ */
 @Aspect
 @Component
 public class ControllerLoggingAspect {
-
     private static final Logger logger = LoggerFactory.getLogger(ControllerLoggingAspect.class);
-
     @Around("execution(* com.example.firstsb.controller.*.*(..))")
     public Object logControllerAround(ProceedingJoinPoint joinPoint) throws Throwable {
         long startTime = System.currentTimeMillis();

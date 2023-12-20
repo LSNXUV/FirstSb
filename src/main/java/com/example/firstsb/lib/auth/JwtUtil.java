@@ -1,9 +1,13 @@
 package com.example.firstsb.lib.auth;
 
+import com.example.firstsb.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 /*
 * JJWT
 * */
@@ -14,10 +18,14 @@ public class JwtUtil {
     /**
      * 生成JWT令牌,payload只有username
      */
-    public static String generateToken(String username) {
-
+    public static String generateToken(User user) {
+        //claims中存储的是JWT第二部分负载 payload 中存储的内容
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("id", user.getId());
+        claims.put("username", user.getUsername());
+        claims.put(("name"), user.getName());
         return  Jwts.builder()
-                .setSubject(username)
+                .setClaims(claims)
                 .setExpiration(new Date(System.currentTimeMillis() + expire))
                 .signWith(SignatureAlgorithm.HS512, signKey)
                 .compact();

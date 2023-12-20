@@ -1,4 +1,5 @@
 com\example\firstsb\controller\UserController$LoginData.class
+com\example\firstsb\lib\AOP\ControllerLoggingAspect.class
 com\example\firstsb\service\TeacherService.class
 com\example\firstsb\controller\SCController$EnrollSC.class
 com\example\firstsb\repository\TCRepository.class
@@ -22,7 +23,6 @@ com\example\firstsb\controller\TCController.class
 com\example\firstsb\lib\Response.class
 com\example\firstsb\controller\UserController.class
 com\example\firstsb\model\Student.class
-com\example\firstsb\config\WebConfig.class
 com\example\firstsb\FirstSbApplication.class
 com\example\firstsb\controller\SCController.class
 com\example\firstsb\service\CourseService.class

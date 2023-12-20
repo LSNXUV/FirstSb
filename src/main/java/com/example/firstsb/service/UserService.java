@@ -24,8 +24,9 @@ public class UserService {
         if (user == null) {
             return null;
         }
+
         //生成jwt
-        return JwtUtil.generateToken(username);
+        return JwtUtil.generateToken(user);
     }
 
     //add
