@@ -48,7 +48,7 @@ public class StudentController {
 
     // 添加或更新学生
     @PostMapping("/save")
-    public Response<Student> addOrUpdateStudent(@Valid @RequestBody Student student, BindingResult result) {
+    public Response<Student> addOrUpdateStudent(@Valid Student student, BindingResult result) {
         if (result.hasErrors()) {
             // 处理验证错误
             String errorMsg = result.getAllErrors().stream()

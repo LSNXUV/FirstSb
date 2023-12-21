@@ -39,7 +39,7 @@ public class TeacherController {
     }
 
     @PostMapping("/save")
-    public Response<Teacher> saveTeacher(@RequestBody Teacher teacher) {
+    public Response<Teacher> saveTeacher(Teacher teacher) {
         Teacher savedTeacher = teacherService.save(teacher);
         return Response.success(savedTeacher);
     }

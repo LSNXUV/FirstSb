@@ -33,7 +33,7 @@ public class CourseController {
     }
 
     @PostMapping("/save")
-    public Response<Course> saveCourse(@RequestBody Course course) {
+    public Response<Course> saveCourse(Course course) {
         Course savedCourse = courseService.save(course);
         return Response.success(savedCourse);
     }

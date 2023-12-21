@@ -34,7 +34,7 @@ public class SCController {
 
 
     @PostMapping("/save")
-    public Response<SC> saveSC(@RequestBody EnrollSC data) {
+    public Response<SC> saveSC(EnrollSC data) {
         if(data.cid == null || data.sid == null) {
             return Response.error("参数错误");
         }
@@ -52,7 +52,7 @@ public class SCController {
         }
     }
     @PostMapping("/score")
-    public Response<SC> scoreSC(@RequestBody ScoreSC data) {
+    public Response<SC> scoreSC(ScoreSC data) {
 
         //允许score为null，但是如果是数字，必须在0-100之间
         if(data.id <= 0 || (data.score != null && (data.score < 0 || data.score > 100))) {

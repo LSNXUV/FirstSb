@@ -33,7 +33,7 @@ public class TCController {
     }
 
     @PostMapping("/save")
-    public Response<TC> saveTC(@RequestBody EnrollTC data) {
+    public Response<TC> saveTC(EnrollTC data) {
         Long tid = data.tid;
         Long cid = data.cid;
 
