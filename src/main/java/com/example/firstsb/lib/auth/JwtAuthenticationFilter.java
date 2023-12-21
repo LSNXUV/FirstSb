@@ -20,7 +20,6 @@ public class JwtAuthenticationFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
-
         // 设置跨域相关的HTTP头
         httpResponse.setHeader("Access-Control-Allow-Origin", "*");
         httpResponse.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
@@ -31,7 +30,6 @@ public class JwtAuthenticationFilter implements Filter {
             chain.doFilter(request, response);
             return;
         }
-
         //获取请求头中的token
         String token = (httpRequest).getHeader("Authorization");
         //验证token是否有效
