@@ -61,7 +61,6 @@ public class SCService {
         SC sc = new SC();
         sc.setCourse(course);
         sc.setStudent(student);
-        System.out.println(sc.getScore());
         try{
             return scRepository.save(sc);
         } catch (Exception e) {

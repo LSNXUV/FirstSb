@@ -43,7 +43,7 @@ public class StudentController {
         }
         Pageable pageable = (page != null && size != null) ? PageRequest.of(--page, size) : null;
         Page<Student> students = studentService.findAll(pageable);
-        return Response.success(students);
+        return Response.success(students,"获取成功");
     }
 
     // 添加或更新学生
@@ -71,7 +71,7 @@ public class StudentController {
     @GetMapping("/searchByName")
     public Response<List<Student>> getStudentByName(@RequestParam @NotBlank(message = "Name cannot be blank") String name) {
         List<Student> students = studentService.findByName(name);
-        return Response.success(students);
+        return Response.success(students,"获取成功");
     }
 
     // 根据 ID 查询返回 JSON 数据
@@ -81,6 +81,6 @@ public class StudentController {
         if (student == null) {
             return Response.error("没有找到学生");
         }
-        return Response.success(student);
+        return Response.success(student,"获取成功");
     }
 }

@@ -20,7 +20,7 @@ public class SCController {
     @GetMapping("/all")
     public Response<List<SC>> getAllSC() {
         List<SC> scList = scService.findAll();
-        return Response.success(scList);
+        return Response.success(scList, "获取成功");
     }
 
     public static class EnrollSC {
@@ -39,7 +39,7 @@ public class SCController {
             return Response.error("参数错误");
         }
         SC sc = scService.save(data.cid, data.sid);
-        return Response.success(sc);
+        return Response.success(sc, "选课成功");
     }
 
     //score
@@ -60,7 +60,7 @@ public class SCController {
         }
 
         SC sc = scService.save(data.id, data.score);
-        return Response.success(sc);
+        return Response.success(sc, "操作成功");
     }
 
     //findByCourseName
@@ -70,7 +70,7 @@ public class SCController {
             return Response.error("name不能为空");
         }
         List<SC> scList = scService.findByCourseName(name);
-        return Response.success(scList);
+        return Response.success(scList, "获取成功");
     }
 
     //findByStudentName
@@ -80,7 +80,7 @@ public class SCController {
             return Response.error("name不能为空");
         }
         List<SC> scList = scService.findByStudentName(name);
-        return Response.success(scList);
+        return Response.success(scList, "获取成功");
     }
 
     @DeleteMapping("/delete")

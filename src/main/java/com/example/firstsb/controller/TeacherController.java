@@ -22,12 +22,12 @@ public class TeacherController {
     @GetMapping("/all")
     public Response<List<Teacher>> findAllTeachers() {
         List<Teacher> teachers = teacherService.findAll();
-        return Response.success(teachers);
+        return Response.success(teachers, "获取成功");
     }
     @GetMapping("/latest")
     public Response<List<Teacher>> findLatestTeachers() {
         List<Teacher> teachers = teacherService.findLatestTeachers();
-        return Response.success(teachers);
+        return Response.success(teachers, "获取成功");
     }
     @GetMapping("/search")
     public Response<Teacher> findTeacherById(@RequestParam  @NotBlank(message = "参数错误") @Min(1) Long id) {
@@ -35,13 +35,13 @@ public class TeacherController {
         if(teacher == null) {
             return Response.error("未找到该教师");
         }
-        return Response.success(teacher);
+        return Response.success(teacher, "获取成功");
     }
 
     @PostMapping("/save")
     public Response<Teacher> saveTeacher(Teacher teacher) {
         Teacher savedTeacher = teacherService.save(teacher);
-        return Response.success(savedTeacher);
+        return Response.success(savedTeacher, "操作成功");
     }
 
     @DeleteMapping("/delete")

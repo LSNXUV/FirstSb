@@ -1,5 +1,6 @@
 package com.example.firstsb.service;
 
+import com.example.firstsb.lib.CustomException.FatalException;
 import com.example.firstsb.model.Course;
 import com.example.firstsb.model.TC;
 import com.example.firstsb.model.Teacher;
@@ -29,18 +30,18 @@ public class TCService {
 
     //add or save
     public TC save(Long tid,Long cid) {
-        Teacher teacher = teacherRepository.findById(tid).orElse(null);
-        if(teacher == null) {
-            return null;
-        }
-        Course course = courseRepository.findById(cid).orElse(null);
-        if(course == null) {
-            return null;
-        }
+        Teacher teacher = teacherRepository.findById(tid)
+                .orElseThrow(() -> new FatalException("教师不存在,id: " + tid));
+        Course course = courseRepository.findById(cid)
+                .orElseThrow(() -> new FatalException("课程不存在,id: " + cid));
         TC tc = new TC();
         tc.setTeacher(teacher);
         tc.setCourse(course);
-        return tcRepository.save(tc);
+        try{
+            return tcRepository.save(tc);
+        } catch (Exception e) {
+            throw new FatalException("已经存在该选课记录");
+        }
     }
     //del
     public void deleteById(int id) {

@@ -20,7 +20,7 @@ public class TCController {
     @GetMapping("/all")
     public Response<List<TC>> getAllTC() {
         List<TC> tcList = tcService.findAll();
-        return Response.success(tcList);
+        return Response.success(tcList, "获取成功");
     }
 
     public static class EnrollTC {
@@ -38,14 +38,11 @@ public class TCController {
         Long cid = data.cid;
 
         TC tc = tcService.save(tid,cid);
-        if(tc == null) {
-            return Response.error("开课失败");
-        }
-        return Response.success(tc);
+        return Response.success(tc, "开课成功");
     }
 
-    @DeleteMapping ("/delete/{id}")
-    public Response<String> deleteTCById(@PathVariable int id) {
+    @DeleteMapping ("/delete")
+    public Response<String> deleteTCById(@RequestParam int id) {
         tcService.deleteById(id);
         return Response.successM("成功删除开课,id: " + id);
     }

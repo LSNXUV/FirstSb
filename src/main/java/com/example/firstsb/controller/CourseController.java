@@ -20,7 +20,7 @@ public class CourseController {
     @GetMapping("all")
     public Response<List<Course>> getAllCourses() {
         List<Course> courses = courseService.findAll();
-        return Response.success(courses);
+        return Response.success(courses, "获取成功");
     }
 
     @GetMapping("/search")
@@ -29,13 +29,13 @@ public class CourseController {
             return Response.error("name不能为空");
         }
         Course courses = courseService.findByName(name);
-        return Response.success(courses);
+        return Response.success(courses, "获取成功");
     }
 
     @PostMapping("/save")
     public Response<Course> saveCourse(Course course) {
         Course savedCourse = courseService.save(course);
-        return Response.success(savedCourse);
+        return Response.success(savedCourse, "操作成功");
     }
 
     @DeleteMapping("/delete")
