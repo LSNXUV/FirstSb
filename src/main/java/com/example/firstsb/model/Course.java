@@ -17,8 +17,8 @@ public class Course {
     private String name;     //课程名
 
     @Column(nullable = false)
-    @Min(value = 1, message = "学分必须大于0")
-    private int credit;     //学分
+    @Min(value = 0, message = "学分必须大于0")
+    private double credit;     //学分
 
     @Column(nullable = false)
     @Min(value = 1, message = "学时必须大于0")

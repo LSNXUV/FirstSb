@@ -30,5 +30,7 @@ public class SC {
     @Column(columnDefinition = "int default null")
     @Min(value = 0, message = "分数必须大于等于0")
     @Max(value = 100, message = "分数必须小于等于100")
+    //必须整数
+    @Digits(integer = 3, fraction = 0, message = "分数必须为整数")
     private Integer score;
 }
